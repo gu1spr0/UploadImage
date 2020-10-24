@@ -13,6 +13,8 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -39,7 +41,6 @@ public class ImagenService {
             return e.getMessage();
         }
     }
-    public 
     private void saveFile(InputStream inputStream, String path) {
         try {
             OutputStream outputStream = new FileOutputStream(new File(path));
@@ -53,5 +54,18 @@ public class ImagenService {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+    public List<Imagen> obtenerTodos(){
+        return this.imagenRepository.findAll();
+    }
+    public Imagen obtenerImagen(Integer id){
+        Optional<Imagen> imagen = this.imagenRepository.findById(id);
+        Imagen img;
+        if(imagen.isPresent()){
+            img = imagen.get();
+        }else{
+            img = null;
+        }
+        return img;
     }
 }
