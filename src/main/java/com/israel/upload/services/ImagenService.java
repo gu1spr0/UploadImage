@@ -21,7 +21,7 @@ import java.util.Optional;
 public class ImagenService {
     @Autowired
     private ImagenRepository imagenRepository;
-    private static String UPLOAD_DIR="uploads";
+    private static String UPLOAD_DIR="uploads\\";
     private Imagen imagen;
     public String guardarFile(MultipartFile file, HttpServletRequest request){
         try {
@@ -31,7 +31,7 @@ public class ImagenService {
             saveFile(file.getInputStream(),path);
             this.imagen = new Imagen();
             imagen.setNombre(fileName);
-            imagen.setUrl(path);
+            imagen.setUrl(UPLOAD_DIR  + fileName);
             Date fecha = new Date();
             imagen.setFecha(fecha);
             imagen.setHora(fecha);
